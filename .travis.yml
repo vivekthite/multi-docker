@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t vivekthite/client-tests -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run vivekthite/client-tests npm run test -- --coverage
+  
+after_success:
+  - docker build -t vivekthite/multi-client  ./client
+  - docker build -t vivekthite/multi-nginx  ./nginx
+  - docker build -t vivekthite/multi-server  ./server
+  - docker build -t vivekthite/multi-worker  ./worker
+  # login to docker 
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
+  # push the images to docker hub
+  - docker push vivekthite/multi-client
+  - docker push vivekthite/multi-nginx
+  - docker push vivekthite/multi-server
+  - docker push vivekthite/multi-worker
