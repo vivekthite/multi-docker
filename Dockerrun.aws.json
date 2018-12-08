@@ -5,7 +5,8 @@
             "name": "client",
             "image": "vivekthite/multi-client",
             "hostname": "client",
-            "essential": false
+            "essential": false,
+            "memory": 128
         }
         ,
 
@@ -13,7 +14,8 @@
             "name": "server",
             "image": "vivekthite/multi-server",
             "hostname": "api",
-            "essential": false
+            "essential": false,
+            "memory": 128
         }
         ,
 
@@ -21,7 +23,8 @@
             "name": "worker",
             "image": "vivekthite/multi-worker",
             "hostname": "worker",
-            "essential": false
+            "essential": false,
+            "memory": 128
         }
         ,
         {
@@ -35,7 +38,8 @@
                     "hostPort": 80
                 }               
             ],
-            "links": ["client","server"]
+            "links": ["client","server"],
+            "memory": 128
         }
     ]
 }
