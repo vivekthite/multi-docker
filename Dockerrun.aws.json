@@ -1,0 +1,41 @@
+{
+    "AWSEBDockerrunVersion": "2",
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "vivekthite/multi-client",
+            "hostname": "client",
+            "essential": false
+        }
+        ,
+
+        {
+            "name": "server",
+            "image": "vivekthite/multi-server",
+            "hostname": "api",
+            "essential": false
+        }
+        ,
+
+        {
+            "name": "worker",
+            "image": "vivekthite/multi-worker",
+            "hostname": "worker",
+            "essential": false
+        }
+        ,
+        {
+            "name": "nginx",
+            "image": "vivekthite/multi-nginx",
+            "hostname": "nginx",
+            "essential": true,
+            "portMappings": [
+                {
+                    "containerPort": 80,
+                    "hostPort": 80
+                }               
+            ],
+            "links": ["client","server"]
+        }
+    ]
+}
